@@ -1,4 +1,4 @@
-export const BASE_URL = "http://192.168.85.6:8002";
+export const BASE_URL = "http://localhost:8002";
 
 export const AUTH = {
 

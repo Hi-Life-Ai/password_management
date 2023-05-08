@@ -14,7 +14,6 @@ import { FaPrint, FaFilePdf, } from 'react-icons/fa';
 import Navbar from '../navbar/Navbar';
 import { SERVICE } from '../../../services/Baseservice';
 import { AuthContext } from '../../../context/Appcontext';
-import { Link } from 'react-router-dom';
 
 function Passwordlistuser() {
 
@@ -38,7 +37,7 @@ function Passwordlistuser() {
                     'Authorization': `Bearer ${auth.APIToken}`
                 }
             })
-            res.data.assigneds.filter((data, index) => {
+            let result = res.data.assigneds.filter((data, index) => {
                 if (auth.loginuseruniqid === data.useruniqid) {
                     data.userid.forEach((item, i) => {
                         resultdata.push(item)
@@ -84,9 +83,11 @@ function Passwordlistuser() {
         setExceldata(data);
     }
 
-    useEffect(() => {
+    useEffect(
+        () => {
         getexcelDatas();
-    }, [folder])
+        },[folder]
+        )
 
     //  Print
     const componentRef = useRef();

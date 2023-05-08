@@ -19,7 +19,6 @@ function Userprofilelist() {
     const { auth } = useContext(AuthContext);
 
     const [file, setFile] = useState();
-    const [designation, setDesignation] = useState();
     const [useradd, setUseradd] = useState({
         userid: "", emailid: "", designation: "", username: "", password: "", mobilenumber: "", othermobilenumber: "",profileimage: "", remarks: ""
     })
@@ -27,7 +26,8 @@ function Userprofilelist() {
     const [showAlert, setShowAlert] = useState()
     const handleOpen = () => { setIsErrorOpen(true); };
     const handleClose = () => { setIsErrorOpen(false); };
-    const [fetchsavedesignation, setFetchsavedesignation] = useState("");
+
+    let picture = file ? file : useradd.profileimage;
 
     const id = useParams().id
 
@@ -48,40 +48,10 @@ function Userprofilelist() {
         }
     }
 
-    useEffect(() => {
-        fetchUser();
-    }, [])
-
-    // Fetch designation
-    const fetchDesignation = async () => {
-        try {
-            let req_designation = await axios.get(`${SERVICE.DESIGNATIONS}`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.APIToken}`
-                }
-            });
-            let result = req_designation.data.designations.filter((data) => {
-                if(data.designationname !== 'Admin' && data.designationname !== 'Superadmin'){
-                  return data
-                }
-            })
-          setDesignation(
-              result?.map((d) => ({
-                   ...d,
-                   label: d.designationname,
-                   value: d.designationname,
-               }))
-           );
-        } catch (err) {
-            const messages = err.response.data.message;
-            toast.error(messages);
-        }
-    }
-
     useEffect(
         () => {
-            fetchDesignation();
-        }, [fetchsavedesignation]
+        fetchUser();
+    },[] 
     )
 
     // Update user without password
@@ -253,7 +223,7 @@ function Userprofilelist() {
                         </Grid>
                         <Grid item xs={12} sm={12} md={4} lg={4}>
                             <InputLabel sx={{ m: 1 }}>Profile Image</InputLabel>
-                            <Grid sx={{ display: 'flex', justifyContent: 'center',width:'50%', height:'80px' }}><img src={file ? file : useradd.profileimage} alt="profile image"/></Grid>
+                            <Grid sx={{ display: 'flex', justifyContent: 'center',width:'50%', height:'80px' }}><img src={picture} alt="profile image"/></Grid>
                         </Grid>
                         <Grid item xs={12} sm={12} md={4} lg={4} sx={{marginTop:"40px"}}>
                         <Grid sx={{ display: 'flex', justifyContent: "center" }}>

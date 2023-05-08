@@ -12,47 +12,12 @@ import { AuthContext } from '../../context/Appcontext';
 
 const Userdashboardlist = () => {
 
-    const [password, setPassword] = useState()
-    const [folders, setFolders] = useState([])
     const [folder, setFolder] = useState([]);
     const { auth } = useContext(AuthContext);  
     const[count , setcount]= useState([]);
     const [folderCount, setFolderCount] = useState([])
 
     let resultdata =[]
-    //  Fetch Password Data
-    const fetchPasswords = async () => {
-        try {
-            let res = await axios.get(`${SERVICE.PASSWORD}`,
-                {
-                  headers: {
-                    'Authorization': `Bearer ${auth.APIToken}`
-                  }
-                }
-            );
-            setPassword(res.data.passwords.length)
-        } catch (err) {
-            const messages = err.response.data.message;
-            toast.error(messages)
-        }
-    }
-
-    //  Fetch Folders Data
-    const fetchFolders = async () => {
-        try {
-            let res = await axios.get(`${SERVICE.FOLDER}`,
-                {
-                  headers: {
-                    'Authorization': `Bearer ${auth.APIToken}`
-                  }
-                }
-            );
-            setFolders(res.data.folders.length)
-        } catch (err) {
-            const messages = err.response.data.message;
-            toast.error(messages)
-        }
-    }
 
     const fetchAssignments = async () => {
         try {
@@ -104,11 +69,9 @@ const Userdashboardlist = () => {
     }
 
     useEffect(() => {
-        fetchFolders();
-        fetchPasswords();
         fetchAssignments()
         fetchFolderPasswordCount()
-    })
+    },[])
 
     return (
         <Box>
