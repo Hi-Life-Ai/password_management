@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:8002";
+export const BASE_URL = "https://hilife-password-management.onrender.com";
 
 export const AUTH = {
 
