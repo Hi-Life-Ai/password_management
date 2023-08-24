@@ -51,9 +51,9 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (signin.username === "") {
+        if (signin.username == "") {
             setShowAlert("Please enter username!");
-        } else if (signin.password === "") {
+        } else if (signin.password == "") {
             setShowAlert("Please enter password!");
         } else {
             setShowAlert("");

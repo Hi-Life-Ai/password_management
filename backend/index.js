@@ -11,7 +11,6 @@ const assignedRoute = require('./route/userassignment');
 const designationRoute = require('./route/designation');
 const errorMiddleware = require('./middleware/errorHandle');
 const Cors = require('cors');
-
 // Setting up config file
 dotenv.config();
 
